@@ -1,20 +1,20 @@
-var express = require('express')
-var app = express()
-var mongoose = require('mongoose')
-var PersonModel = require('./models/UserModels')
+
+const express = require('express')
+const app = express()
+const mongoose = require('mongoose')
+
+const port = 5000
+// connection database with server
+const URI = "mongodb+srv://najwa:test@najwadh.myssope.mongodb.net/?retryWrites=true&w=majority"
+
+// parse the data
+app.use(express.json());
+app.use('/contacts', require('./routes/contactRoutes'));
+
+app.listen(port, (err) =>
+
+    err ? console.log('err') : console.log('server is running on port 5000'))
 
 
-//1) Install and setup mongoose:
-var db = 'mongodb://127.0.0.1:27017/Person';
-mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('Database connection successful')
-    })
-    .catch(err => {
-        console.error('Database connection error')
-    })
-
-var port = 8080
-app.listen(port, () => {
-    console.log('App listen on port ' + port)
-})
+mongoose.connect(URI, (err) =>
+    err ? console.log('err') : console.log('database is connected '))
